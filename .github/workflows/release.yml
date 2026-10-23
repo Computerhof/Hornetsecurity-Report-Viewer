@@ -3,6 +3,11 @@ name: Release
 on:
   push:
     tags: ['v*.*.*']
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Bestehender Tag, der veröffentlicht werden soll, z. B. v1.0.0'
+        required: true
 
 permissions:
   contents: read
@@ -14,9 +19,18 @@ jobs:
     timeout-minutes: 10
     permissions:
       contents: write
+    env:
+      TAG: ${{ inputs.tag || github.ref_name }}
     steps:
+      - name: Tag-Format prüfen
+        run: |
+          if ! [[ "${TAG}" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "::error::Ungültiger Tag '${TAG}' (erwartet vX.Y.Z)"; exit 1
+          fi
+
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
+          ref: refs/tags/${{ env.TAG }}
           persist-credentials: false
 
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
@@ -26,8 +40,8 @@ jobs:
       - name: Tag muss zur Version in package.json passen
         run: |
           v=$(node -p "require('./package.json').version")
-          if [ "${GITHUB_REF_NAME}" != "v$v" ]; then
-            echo "::error::Tag ${GITHUB_REF_NAME} passt nicht zu package.json (v$v)"; exit 1
+          if [ "${TAG}" != "v$v" ]; then
+            echo "::error::Tag ${TAG} passt nicht zu package.json (v$v)"; exit 1
           fi
 
       - name: Gates
@@ -45,13 +59,16 @@ jobs:
           cd dist
           sha256sum Hornetsecurity-Report-Viewer.html > SHA256SUMS.txt
           cd ..
-          v="${GITHUB_REF_NAME#v}"
+          v="${TAG#v}"
+          # Abschnitt "## [x.y.z]" bis zum nächsten Abschnitt bzw. den Link-Referenzen
+          # (exakter Textvergleich statt Regex — Punkte und Klammern in der Version sind sonst Sonderzeichen)
           awk -v v="$v" '
-            $0 ~ "^## \[" v "\]" { on = 1; next }
-            on && /^## \[/ { exit }
+            index($0, "## [" v "]") == 1 { on = 1; next }
+            on && index($0, "## [") == 1 { exit }
+            on && index($0, "[") == 1 { exit }
             on { print }
           ' CHANGELOG.md > dist/NOTES.md
-          if [ ! -s dist/NOTES.md ]; then echo "::error::Kein CHANGELOG-Abschnitt für $v"; exit 1; fi
+          if ! grep -q '[^[:space:]]' dist/NOTES.md; then echo "::error::Kein CHANGELOG-Abschnitt für $v"; exit 1; fi
           {
             echo
             echo "---"
@@ -64,9 +81,9 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release create "${GITHUB_REF_NAME}" \
+          gh release create "${TAG}" \
             --repo "${GITHUB_REPOSITORY}" \
-            --title "${GITHUB_REF_NAME}" \
+            --title "${TAG}" \
             --notes-file dist/NOTES.md \
             --verify-tag \
             dist/Hornetsecurity-Report-Viewer.html dist/SHA256SUMS.txt

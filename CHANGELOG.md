@@ -6,6 +6,10 @@ Versionierung nach [Semantic Versioning](https://semver.org/lang/de/).
 
 ## [Unreleased]
 
+### Behoben
+- Release-Workflow: Release-Notizen werden korrekt aus dem CHANGELOG übernommen;
+  bestehende Tags lassen sich manuell (erneut) veröffentlichen (`workflow_dispatch`).
+
 ## [1.0.0] - 2026-10-23
 
 Erste öffentliche Version.
