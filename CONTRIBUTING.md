@@ -94,4 +94,10 @@ Commit-Präfixe: `feat:`, `fix:`, `docs:`, `test:`, `refactor:`, `chore:`.
 4. Schlägt der Release fehl, nach der Korrektur auf `main` neu starten, ohne den Tag zu verschieben:
    `gh workflow run release.yml -f tag=v1.2.3`.
 
-Mit dem Einreichen eines Beitrags stimmen Sie zu, dass er unter der [MIT-Lizenz](LICENSE) steht.
+## Lizenz von Beiträgen
+
+Das Projekt steht unter der [PolyForm Shield License 1.0.0](LICENSE). Mit dem Einreichen eines
+Beitrags bestätigen Sie, dass Sie ihn selbst verfasst haben oder die Rechte daran besitzen, und
+räumen chrive-solutions e.U. das unbefristete, unentgeltliche und nicht ausschließliche Recht ein,
+den Beitrag zu nutzen, zu verändern und unter der PolyForm Shield License 1.0.0 oder einer anderen
+Lizenz zu verbreiten.

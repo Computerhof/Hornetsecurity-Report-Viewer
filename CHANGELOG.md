@@ -6,6 +6,11 @@ Versionierung nach [Semantic Versioning](https://semver.org/lang/de/).
 
 ## [Unreleased]
 
+## [2.0.0] - 2026-10-23
+
+Lizenzwechsel auf PolyForm Shield 1.0.0; dazu Linter, Doku-Gate und Abhängigkeitsprüfung als
+Pull-Request-Checks. Die Auswertung selbst ist unverändert.
+
 ### Hinzugefügt
 
 - Linter als Pull-Request-Check: ESLint, markdownlint und PSScriptAnalyzer (`npm run lint`).
@@ -17,6 +22,9 @@ Versionierung nach [Semantic Versioning](https://semver.org/lang/de/).
 
 ### Geändert
 
+- **Lizenz:** PolyForm Shield License 1.0.0 statt MIT. Nutzung bleibt kostenlos, auch in Firmen und
+  in veränderter Form; Verkauf, Weitergabe oder Betrieb als konkurrierendes Produkt nur mit Vereinbarung.
+  Version 1.0.0 bleibt unter der MIT-Lizenz. Fußzeile, README und `package.json` angepasst.
 - Entwicklung benötigt Node.js ≥ 22.13 (Linter); die ausgelieferte HTML-Datei bleibt ohne Abhängigkeiten.
 - `build.ps1` als UTF-8 mit BOM gespeichert, damit Windows PowerShell 5.1 Umlaute in
   Meldungen korrekt anzeigt; Statusausgabe über `Write-Output`.
@@ -48,5 +56,6 @@ Erste öffentliche Version.
 - CI mit Gates: Daten-Gate gegen echte Reportdaten, Syntax-Prüfung, Tests, Build-Prüfung;
   Release-Workflow mit SHA-256-Prüfsumme.
 
-[Unreleased]: https://github.com/Computerhof/Hornetsecurity-Report-Viewer/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/Computerhof/Hornetsecurity-Report-Viewer/compare/v2.0.0...HEAD
+[2.0.0]: https://github.com/Computerhof/Hornetsecurity-Report-Viewer/releases/tag/v2.0.0
 [1.0.0]: https://github.com/Computerhof/Hornetsecurity-Report-Viewer/releases/tag/v1.0.0
