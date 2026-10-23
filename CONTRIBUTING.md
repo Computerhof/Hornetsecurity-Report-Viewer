@@ -47,5 +47,7 @@ Commit-Präfixe: `feat:`, `fix:`, `docs:`, `test:`, `refactor:`, `chore:`.
 2. Nach dem Merge Tag setzen: `git tag v1.2.3 && git push origin v1.2.3`.
 3. Der Release-Workflow prüft Tag = Version, führt alle Gates aus, baut die HTML-Datei und
    veröffentlicht sie samt SHA-256-Prüfsumme als GitHub-Release.
+4. Schlägt der Release fehl, nach der Korrektur auf `main` neu starten, ohne den Tag zu verschieben:
+   `gh workflow run release.yml -f tag=v1.2.3`.
 
 Mit dem Einreichen eines Beitrags stimmen Sie zu, dass er unter der [MIT-Lizenz](LICENSE) steht.
