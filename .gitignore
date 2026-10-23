@@ -11,6 +11,9 @@
 !/docs/
 !/build.ps1
 !/package.json
+!/package-lock.json
+!/eslint.config.js
+!/.markdownlint.json
 !/README.md
 !/CHANGELOG.md
 !/LICENSE
@@ -21,6 +24,7 @@
 /test/*
 !/test/core.test.js
 !/test/make-sample.js
+!/test/gates.test.js
 !/test/sample.zip
 
 # Echte Report-Dateien nirgends, auch nicht in erlaubten Ordnern

@@ -2,7 +2,6 @@
 'use strict';
 
 const fs = require('fs');
-const path = require('path');
 const zlib = require('zlib');
 const core = require('../src/core.js');
 

@@ -10,13 +10,27 @@
     "url": "https://github.com/Computerhof/Hornetsecurity-Report-Viewer.git"
   },
   "engines": {
-    "node": ">=20"
+    "node": ">=22.13"
   },
   "scripts": {
-    "check": "node --check src/core.js && node --check src/ui.js && node --check test/make-sample.js && node --check scripts/check-data.js",
-    "test": "node test/core.test.js test/sample.zip",
+    "check": "node --check src/core.js && node --check src/ui.js && node --check test/core.test.js && node --check test/gates.test.js && node --check test/make-sample.js && node --check scripts/check-data.js && node --check scripts/check-docs.js && node --check scripts/lint-md.js",
+    "lint": "npm run lint:js && npm run lint:md && npm run lint:ps",
+    "lint:js": "eslint .",
+    "lint:md": "node scripts/lint-md.js",
+    "lint:ps": "pwsh -NoProfile -File scripts/lint-ps.ps1",
+    "test": "node test/core.test.js test/sample.zip && node test/gates.test.js",
     "sample": "node test/make-sample.js",
     "gate:data": "node test/make-sample.js --check && node scripts/check-data.js",
+    "gate:docs": "node scripts/check-docs.js",
     "build": "pwsh -NoProfile -File build.ps1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.13.0",
+    "globals": "^17.13.0",
+    "markdownlint": "^0.42.0"
+  },
+  "overrides": {
+    "katex": "^0.19.0"
   }
 }

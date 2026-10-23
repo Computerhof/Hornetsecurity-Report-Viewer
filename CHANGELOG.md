@@ -6,7 +6,23 @@ Versionierung nach [Semantic Versioning](https://semver.org/lang/de/).
 
 ## [Unreleased]
 
+### Hinzugefügt
+
+- Linter als Pull-Request-Check: ESLint, markdownlint und PSScriptAnalyzer (`npm run lint`).
+- Doku-Gate als Pull-Request-Check (`scripts/check-docs.js`): CHANGELOG-Eintrag bei
+  Produktänderungen, Entwickler-Doku bei Werkzeug-Änderungen, Konsistenz von npm-Skripten,
+  Links und CHANGELOG; Ausnahme per Label `keine-doku`.
+- Abhängigkeitsprüfung (Dependency Review) als Pull-Request-Check; Dependabot zusätzlich für
+  npm, wöchentlich und gebündelt; Dependabot-Sicherheitsupdates aktiviert.
+
+### Geändert
+
+- Entwicklung benötigt Node.js ≥ 22.13 (Linter); die ausgelieferte HTML-Datei bleibt ohne Abhängigkeiten.
+- `build.ps1` als UTF-8 mit BOM gespeichert, damit Windows PowerShell 5.1 Umlaute in
+  Meldungen korrekt anzeigt; Statusausgabe über `Write-Output`.
+
 ### Behoben
+
 - Release-Workflow: Release-Notizen werden korrekt aus dem CHANGELOG übernommen;
   bestehende Tags lassen sich manuell (erneut) veröffentlichen (`workflow_dispatch`).
 
@@ -15,6 +31,7 @@ Versionierung nach [Semantic Versioning](https://semver.org/lang/de/).
 Erste öffentliche Version.
 
 ### Hinzugefügt
+
 - Portable Einzeldatei `Hornetsecurity-Report-Viewer.html`: Report-ZIP des Hornetsecurity
   Security Awareness Service per Drag & Drop laden, Auswertung komplett offline im Browser.
 - KPI-Kacheln: ESI mit Vormonats-Delta, simulierte, erfolgreiche und gemeldete Angriffe,

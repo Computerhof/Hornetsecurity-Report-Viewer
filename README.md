@@ -38,7 +38,7 @@ vollständig erfundener Beispiel-Report.
 ### Was das Dashboard zeigt
 
 | Bereich | Inhalt |
-|---|---|
+| --- | --- |
 | **KPI-Kacheln** | ESI (Employee Security Index) mit Vormonats-Delta, simulierte / erfolgreiche / gemeldete Angriffe, Meldequote, riskante Interaktionen (Klicks, Logins, geöffnete Dateien, Makros), E-Training-Fortschritt |
 | **Diagramme** | Angriffe und Meldungen je Mitarbeiter-Level, Mitarbeiter-Verteilung, E-Training-Status |
 | **Monats-Verlauf** | ESI, Melde- und Erfolgsquote über die Monate (ab dem zweiten geladenen Report) |
@@ -64,7 +64,7 @@ Ohne Internetverbindung, ohne Server, ohne Administratorrechte.
 Der Statistik-Export des Security Awareness Service, z. B. `security_awareness_service_statistics.zip`:
 
 | Datei | Inhalt |
-|---|---|
+| --- | --- |
 | `company_statistics.csv` | Firmen-Gesamtwerte (ESI, Angriffe, Level 1–5, E-Trainings) |
 | `group_statistics.csv` | Dieselben Werte je Gruppe |
 | `user_statistics.csv` | Werte je Mitarbeiter |
@@ -80,33 +80,42 @@ Format-Eigenheiten, die der Viewer berücksichtigt: Listenfelder im Python-Stil
 
 ## Entwicklung
 
-```
+```text
 src/
 ├── core.js        ZIP-Leser, DEFLATE (puff-Port als Fallback), CSV-Parser, Datenmodell (in Node testbar)
 ├── ui.js          Rendering: KPI, SVG-Diagramme, Tabellen, Tooltips, Verlauf, Drag & Drop
 └── template.html  Gerüst und CSS (Farbsystem hell/dunkel, Druck-Styles)
 test/
 ├── core.test.js   Tests: Inflate-Fuzz gegen zlib, ZIP-/CSV-Grenzfälle, Datenmodell-Sollwerte
+├── gates.test.js  Tests der Doku-Gate-Regeln
 ├── make-sample.js Generator für den synthetischen Beispiel-Report (deterministisch)
 └── sample.zip     Synthetischer Beispiel-Report (nur erfundene Daten)
 scripts/
-└── check-data.js  Daten-Gate: nur erlaubte Pfade, keine echten Reportdaten
+├── check-data.js  Daten-Gate: nur erlaubte Pfade, keine echten Reportdaten
+├── check-docs.js  Doku-Gate: Doku passt zum Code (PR-Check)
+├── lint-md.js     markdownlint-Lauf über alle Markdown-Dateien
+└── lint-ps.ps1    PSScriptAnalyzer-Lauf über alle PowerShell-Skripte
 build.ps1          setzt core.js + ui.js + Version ins Template ein → dist/Hornetsecurity-Report-Viewer.html
 ```
 
 ```powershell
+npm ci              # Entwicklungswerkzeuge (Linter) installieren
 npm run gate:data   # Daten-Gate
+npm run gate:docs   # Doku-Gate
 npm run check       # Syntax-Prüfung
+npm run lint        # ESLint, markdownlint, PSScriptAnalyzer
 npm test            # Tests (müssen „0 fehlgeschlagen" melden)
 .\build.ps1         # Build → dist/Hornetsecurity-Report-Viewer.html
 ```
 
-Voraussetzungen: Node.js ≥ 20 und PowerShell. Es gibt keine npm-Abhängigkeiten.
+Voraussetzungen: Node.js ≥ 22.13 und PowerShell. npm-Pakete gibt es nur als Entwicklungswerkzeuge;
+die ausgelieferte HTML-Datei hat keine Abhängigkeiten.
 Die Version steht ausschließlich in `package.json` und wird beim Build in die Fußzeile übernommen.
 
 ### Qualitäts-Gates
 
-Jeder Push und jeder Pull Request durchläuft in der [CI](.github/workflows/ci.yml):
+Jeder Pull Request muss in der [CI](.github/workflows/ci.yml) alle Checks bestehen, bevor er
+nach `main` gemergt werden kann:
 
 1. **Daten-Gate:** Die eingecheckte Beispiel-ZIP muss byte-gleich aus dem Generator stammen.
    Alle Dateien, auch die Inhalte der ZIP, dürfen nur E-Mail-Adressen erlaubter Domains
@@ -116,6 +125,16 @@ Jeder Push und jeder Pull Request durchläuft in der [CI](.github/workflows/ci.y
 3. **Test-Suite** (ZIP/DEFLATE-Fuzzing, CSV-Parser, Datenmodell, Robustheit).
 4. **Build und Build-Prüfung:** Die HTML-Datei ist eigenständig (keine externen Skripte), und
    Version sowie Lizenzhinweis sind enthalten.
+5. **Lint:** ESLint für JavaScript, markdownlint für die Dokumentation, PSScriptAnalyzer für
+   die PowerShell-Skripte.
+6. **Doku-Gate:** Produktänderungen brauchen einen CHANGELOG-Eintrag, Änderungen an
+   Werkzeugen und Abläufen eine angepasste Entwickler-Doku. npm-Skripte, Links und
+   CHANGELOG-Struktur werden auf Konsistenz geprüft.
+7. **Abhängigkeiten prüfen:** Neue oder geänderte Pakete und Actions dürfen keine bekannten
+   Sicherheitslücken und keine GPL/AGPL-Lizenz mitbringen.
+
+Dependabot hält npm-Pakete und Actions aktuell (wöchentlich, gebündelt, Sicherheitsupdates
+sofort). Details zu allen Checks stehen in [CONTRIBUTING.md](CONTRIBUTING.md#pull-request-checks).
 
 Releases baut der [Release-Workflow](.github/workflows/release.yml) aus einem Tag `vX.Y.Z`. Er
 bricht ab, wenn Tag und `package.json` nicht übereinstimmen.

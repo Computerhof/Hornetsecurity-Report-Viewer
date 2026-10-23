@@ -9,7 +9,7 @@ Sicherheitskorrekturen gibt es für die jeweils neueste Version (siehe [Releases
 Bitte **nicht** als öffentliches Issue melden, sondern vertraulich:
 
 - über [GitHub Security Advisories](https://github.com/Computerhof/Hornetsecurity-Report-Viewer/security/advisories/new) oder
-- per E-Mail an **office@chrive-solutions.at** (Betreff „Security: Hornetsecurity Report Viewer").
+- per E-Mail an [office@chrive-solutions.at](mailto:office@chrive-solutions.at) (Betreff „Security: Hornetsecurity Report Viewer").
 
 Wir bestätigen den Eingang in der Regel innerhalb von 5 Werktagen und stimmen den
 Veröffentlichungszeitpunkt einer Korrektur mit Ihnen ab.
