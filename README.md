@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/Computerhof/Hornetsecurity-Report-Viewer/actions/workflows/ci.yml/badge.svg)](https://github.com/Computerhof/Hornetsecurity-Report-Viewer/actions/workflows/ci.yml)
 [![Release](https://img.shields.io/github/v/release/Computerhof/Hornetsecurity-Report-Viewer)](https://github.com/Computerhof/Hornetsecurity-Report-Viewer/releases/latest)
-[![Lizenz: MIT](https://img.shields.io/badge/Lizenz-MIT-blue.svg)](LICENSE)
+[![Lizenz: PolyForm Shield 1.0.0](https://img.shields.io/badge/Lizenz-PolyForm%20Shield%201.0.0-blue.svg)](LICENSE)
 
 Macht aus dem monatlichen Report des **Hornetsecurity Security Awareness Service** (ZIP mit vier
 CSV-Dateien) ein übersichtliches, interaktives Dashboard. Es ist eine einzige HTML-Datei:
@@ -151,7 +151,18 @@ Mehr dazu in [CONTRIBUTING.md](CONTRIBUTING.md). Sicherheitsthemen: [SECURITY.md
 
 ## Lizenz und Kontakt
 
-© 2026 **chrive-solutions e.U.**, veröffentlicht unter der [MIT-Lizenz](LICENSE).
+© 2026 **chrive-solutions e.U.**, veröffentlicht unter der
+[PolyForm Shield License 1.0.0](LICENSE).
+
+- **Erlaubt:** den Viewer kostenlos nutzen, privat und in der Firma, auch verändert für eigene Zwecke.
+- **Nicht erlaubt:** ein Produkt anbieten, das mit dem Viewer konkurriert, also den Viewer oder eine
+  veränderte Fassung verkaufen, weitergeben oder als Dienst anbieten, auch kostenlos. Dafür ist eine
+  Vereinbarung mit chrive-solutions e.U. nötig.
+
+Diese Kurzfassung ist unverbindlich; maßgeblich ist der englische Lizenztext in [LICENSE](LICENSE).
+Die PolyForm Shield License ist keine Open-Source-Lizenz im Sinne der OSI: Der Quelltext ist offen
+einsehbar, die Weitergabe ist eingeschränkt. Version 1.0.0 wurde unter der MIT-Lizenz veröffentlicht
+und bleibt unter dieser Lizenz.
 
 Kontakt: [office@chrive-solutions.at](mailto:office@chrive-solutions.at) ·
 [chrive-solutions.at](https://chrive-solutions.at)

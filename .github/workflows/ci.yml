@@ -48,6 +48,8 @@ jobs:
           v=$(node -p "require('./package.json').version")
           grep -q "Hornetsecurity Report Viewer v$v" "$f"
           grep -q "office@chrive-solutions.at" "$f"
+          grep -q "PolyForm Shield 1.0.0" "$f"
+          grep -q "^# PolyForm Shield License 1.0.0$" LICENSE
           ! grep -q "__VERSION__\|/\*__CORE__\*/\|/\*__UI__\*/" "$f"
           ! grep -qE "<script[^>]+src=|<link[^>]+href=\"https?:" "$f"
           echo "OK: $f (v$v) ist eigenständig, Version und Lizenzhinweis vorhanden."

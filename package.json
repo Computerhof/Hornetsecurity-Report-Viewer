@@ -1,9 +1,9 @@
 {
   "name": "hornetsecurity-report-viewer",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Portabler Offline-Viewer für die monatlichen Reports des Hornetsecurity Security Awareness Service (ZIP mit 4 CSVs → HTML-Dashboard).",
   "private": true,
-  "license": "MIT",
+  "license": "SEE LICENSE IN LICENSE",
   "author": "chrive-solutions e.U. <office@chrive-solutions.at> (https://chrive-solutions.at)",
   "repository": {
     "type": "git",
