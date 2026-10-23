@@ -1,0 +1,31 @@
+# Positivliste: Es wird nur eingecheckt, was ausdrücklich erlaubt ist.
+# Alles andere (echte Reports, Build-Ergebnisse, lokale Notizen) bleibt draußen.
+# Die CI prüft zusätzlich mit scripts/check-data.js.
+/*
+!/.gitignore
+!/.gitattributes
+!/.github/
+!/src/
+!/test/
+!/scripts/
+!/docs/
+!/build.ps1
+!/package.json
+!/README.md
+!/CHANGELOG.md
+!/LICENSE
+!/SECURITY.md
+!/CONTRIBUTING.md
+
+# In test/ nur Test, Generator und die synthetische Beispiel-ZIP
+/test/*
+!/test/core.test.js
+!/test/make-sample.js
+!/test/sample.zip
+
+# Echte Report-Dateien nirgends, auch nicht in erlaubten Ordnern
+*.csv
+*.xlsx
+*.xls
+*.zip
+!/test/sample.zip

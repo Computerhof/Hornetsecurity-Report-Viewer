@@ -1,0 +1,72 @@
+name: Release
+
+on:
+  push:
+    tags: ['v*.*.*']
+
+permissions:
+  contents: read
+
+jobs:
+  release:
+    name: Release bauen und veröffentlichen
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 22
+
+      - name: Tag muss zur Version in package.json passen
+        run: |
+          v=$(node -p "require('./package.json').version")
+          if [ "${GITHUB_REF_NAME}" != "v$v" ]; then
+            echo "::error::Tag ${GITHUB_REF_NAME} passt nicht zu package.json (v$v)"; exit 1
+          fi
+
+      - name: Gates
+        run: |
+          npm run gate:data
+          npm run check
+          npm test
+
+      - name: Build
+        shell: pwsh
+        run: ./build.ps1
+
+      - name: Prüfsumme und Release-Notizen
+        run: |
+          cd dist
+          sha256sum Hornetsecurity-Report-Viewer.html > SHA256SUMS.txt
+          cd ..
+          v="${GITHUB_REF_NAME#v}"
+          awk -v v="$v" '
+            $0 ~ "^## \[" v "\]" { on = 1; next }
+            on && /^## \[/ { exit }
+            on { print }
+          ' CHANGELOG.md > dist/NOTES.md
+          if [ ! -s dist/NOTES.md ]; then echo "::error::Kein CHANGELOG-Abschnitt für $v"; exit 1; fi
+          {
+            echo
+            echo "---"
+            echo
+            echo "**Download:** \`Hornetsecurity-Report-Viewer.html\` herunterladen und per Doppelklick im Browser öffnen."
+            echo "Prüfsumme (SHA-256): \`$(cut -d' ' -f1 dist/SHA256SUMS.txt)\`"
+          } >> dist/NOTES.md
+
+      - name: GitHub-Release anlegen
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "${GITHUB_REF_NAME}" \
+            --repo "${GITHUB_REPOSITORY}" \
+            --title "${GITHUB_REF_NAME}" \
+            --notes-file dist/NOTES.md \
+            --verify-tag \
+            dist/Hornetsecurity-Report-Viewer.html dist/SHA256SUMS.txt

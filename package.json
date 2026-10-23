@@ -1,0 +1,22 @@
+{
+  "name": "hornetsecurity-report-viewer",
+  "version": "1.0.0",
+  "description": "Portabler Offline-Viewer für die monatlichen Reports des Hornetsecurity Security Awareness Service (ZIP mit 4 CSVs → HTML-Dashboard).",
+  "private": true,
+  "license": "MIT",
+  "author": "chrive-solutions e.U. <office@chrive-solutions.at> (https://chrive-solutions.at)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Computerhof/Hornetsecurity-Report-Viewer.git"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "check": "node --check src/core.js && node --check src/ui.js && node --check test/make-sample.js && node --check scripts/check-data.js",
+    "test": "node test/core.test.js test/sample.zip",
+    "sample": "node test/make-sample.js",
+    "gate:data": "node test/make-sample.js --check && node scripts/check-data.js",
+    "build": "pwsh -NoProfile -File build.ps1"
+  }
+}

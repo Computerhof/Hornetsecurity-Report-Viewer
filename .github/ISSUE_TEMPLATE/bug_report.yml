@@ -1,0 +1,34 @@
+name: Fehler melden
+description: Etwas funktioniert nicht wie erwartet.
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Bitte keine echten Reports, CSV-Inhalte, E-Mail-Adressen oder Screenshots mit Mitarbeiterdaten anhängen.**
+        Beschreiben Sie das Problem stattdessen mit Spaltennamen oder anonymisierten Beispielwerten.
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: Steht unten in der Fußzeile, z. B. „v1.0.0".
+    validations:
+      required: true
+  - type: input
+    id: browser
+    attributes:
+      label: Browser und Betriebssystem
+      placeholder: z. B. Edge 141 unter Windows 11
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: Was ist passiert, was haben Sie erwartet?
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Schritte zum Nachstellen
+      placeholder: Funktioniert es mit test/sample.zip aus dem Repository?

@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Sicherheitslücke melden
+    url: https://github.com/Computerhof/Hornetsecurity-Report-Viewer/security/advisories/new
+    about: Bitte nicht öffentlich als Issue — vertraulich über GitHub Security Advisories melden.
+  - name: Kontakt
+    url: https://chrive-solutions.at
+    about: chrive-solutions e.U. — office@chrive-solutions.at
