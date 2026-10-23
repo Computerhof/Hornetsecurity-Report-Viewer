@@ -1,9 +1,37 @@
+# Dependabot: Update-PRs gebündelt je Ökosystem, damit sie gemeinsam geprüft und gemergt werden.
+# Sicherheitsupdates kommen unabhängig vom Zeitplan sofort (Repo-Einstellung "Dependabot security updates").
 version: 2
 updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      time: "06:00"
+      timezone: Europe/Vienna
+    open-pull-requests-limit: 5
+    labels: [dependencies, javascript]
+    commit-message:
+      prefix: chore
+      include: scope
+    groups:
+      entwicklungswerkzeuge:
+        dependency-type: development
+        update-types: [minor, patch]
+    # Major-Versionen kommen als eigener PR (können Lint-Regeln oder Node-Anforderungen ändern)
+
   - package-ecosystem: github-actions
     directory: /
     schedule:
-      interval: monthly
+      interval: weekly
+      day: monday
+      time: "06:00"
+      timezone: Europe/Vienna
+    open-pull-requests-limit: 5
+    labels: [dependencies, github-actions]
+    commit-message:
+      prefix: chore
+      include: scope
     groups:
       actions:
-        patterns: ['*']
+        patterns: ["*"]

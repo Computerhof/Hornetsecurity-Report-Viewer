@@ -20,9 +20,10 @@ const ALLOWED_PATHS = [
   /^\.gitignore$/, /^\.gitattributes$/,
   /^\.github\/(workflows\/[\w.-]+\.yml|dependabot\.yml|ISSUE_TEMPLATE\/[\w.-]+\.(yml|md)|pull_request_template\.md)$/,
   /^src\/(core\.js|ui\.js|template\.html)$/,
-  /^test\/(core\.test\.js|make-sample\.js|sample\.zip)$/,
-  /^scripts\/check-data\.js$/,
+  /^test\/(core\.test\.js|gates\.test\.js|make-sample\.js|sample\.zip)$/,
+  /^scripts\/[\w-]+\.(js|ps1)$/,
   /^docs\/[\w.-]+\.(md|png|svg)$/,
+  /^(eslint\.config\.js|\.markdownlint\.json|package-lock\.json)$/,
   /^(build\.ps1|package\.json|README\.md|CHANGELOG\.md|LICENSE|SECURITY\.md|CONTRIBUTING\.md)$/
 ];
 const REPORT_FILE = /\.(zip|csv|xlsx?|json\.gz)$/i;

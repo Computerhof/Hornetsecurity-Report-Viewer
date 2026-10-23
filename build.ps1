@@ -1,4 +1,4 @@
-# Baut die portable Einzeldatei dist/Hornetsecurity-Report-Viewer.html aus src/
+﻿# Baut die portable Einzeldatei dist/Hornetsecurity-Report-Viewer.html aus src/
 # Die Version kommt ausschließlich aus package.json (Single Source of Truth).
 # Läuft unter Windows PowerShell 5.1 und PowerShell 7 (Windows/Linux/macOS).
 $ErrorActionPreference = 'Stop'
@@ -24,4 +24,4 @@ New-Item -ItemType Directory -Force $dist | Out-Null
 $outPath = Join-Path $dist 'Hornetsecurity-Report-Viewer.html'
 [System.IO.File]::WriteAllText($outPath, $out, [System.Text.UTF8Encoding]::new($false))
 
-Write-Host "Gebaut: $outPath (v$version, $([math]::Round((Get-Item $outPath).Length / 1KB)) KB)"
+Write-Output "Gebaut: $outPath (v$version, $([math]::Round((Get-Item $outPath).Length / 1KB)) KB)"

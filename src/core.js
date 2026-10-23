@@ -412,7 +412,7 @@ var PRVCore = (function () {
       var full = String(f.name);
       var base = full.split('/').pop().split('\\').pop();
       /* macOS-Archiv-Metadaten aussortieren (__MACOSX/, AppleDouble ._*, .DS_Store) */
-      if (/(^|[\/\\])__MACOSX([\/\\]|$)/.test(full) || /^\._/.test(base) || /^\.DS_Store$/i.test(base)) return;
+      if (/(^|[/\\])__MACOSX([/\\]|$)/.test(full) || /^\._/.test(base) || /^\.DS_Store$/i.test(base)) return;
       var match = null;
       for (var i = 0; i < FILE_KEYS.length; i++) {
         if (FILE_KEYS[i].pattern.test(base)) { match = FILE_KEYS[i].key; break; }
